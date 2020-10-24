@@ -1,0 +1,21 @@
+body {
+    background-color: #333333; 
+    color: #ffffff;  
+   }
+form {
+    margin: 0 auto; 
+    width:250px;
+    text-align: center;
+  }
+.myDiv1 {
+    background-color: #333333; 
+    text-align: center;
+  } 
+.errorMsg {
+    min-height: 20px;
+    color: rgb(238, 241, 18);
+  }  
+.button1 {
+    width: 100px;
+    height: 25px;
+  }

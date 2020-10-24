@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic 8 Ball - Balaji Vadlamudi</title>
+    <link rel="stylesheet" href="css/style.css"> 
+</head>
+<body>
+    <!-- <form name="formM8B" action="" autocomplete="on"> -->
+    <div class="myDiv1">
+        <br><br><h1>Magic 8 Ball</h1><br><br>
+        <label for="askme">Ask me anything!</label><br><br>
+        <input type="text" name="askme" id="askme" placeholder="Go ahead and try..." onkeyup="checkForEnterKey(this)">
+        <input type="button" name="ask" id="ask" class="button1" value="Ask" onclick="displayRandomImage()"><br>
+        <p id="ErrorMsg" class="errorMsg"> </p>
+    </div>
+    <!-- </form> -->
+    <script src="JS/script.js"></script>
+</body>
+</html>
