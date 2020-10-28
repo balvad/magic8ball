@@ -19,3 +19,9 @@ form {
     width: 100px;
     height: 25px;
   }
+  .shakeimage{
+    position:relative;
+    /* position:absolute; */
+    /* left:"10%";  */
+    /* top:"10%"; */
+}  

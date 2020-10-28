@@ -10,9 +10,9 @@
     <!-- <form name="formM8B" action="" autocomplete="on"> -->
     <div class="myDiv1">
         <br><br><h1>Magic 8 Ball</h1><br><br>
-        <label for="askme">Ask me anything!</label><br><br>
-        <input type="text" name="askme" id="askme" placeholder="Go ahead and try..." onkeyup="checkForEnterKey(this)">
-        <input type="button" name="ask" id="ask" class="button1" value="Ask" onclick="displayRandomImage()"><br>
+        <label for="askme">Ask me anything!   </label>
+        <input type="text" name="askme" id="askme" placeholder="Go ahead and try..." onkeyup="checkForEnterKey(this)" onclick="this.select()" value="Will it rain?">
+        <input type="button" name="ask" id="ask" class="button1" value="Ask" onclick="ask()"><br>
         <p id="ErrorMsg" class="errorMsg"> </p>
     </div>
     <!-- </form> -->
