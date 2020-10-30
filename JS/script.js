@@ -4,8 +4,7 @@ let shakeRector="7%";
 let shakeDirection=getRandomInteger()%5;
 
 document.body.onload=addElement;
-document.getElementById('askme').focus();
-
+document.getElementById('askmeInput').focus();
 
 //Create a new div element and set initial img
 function addElement () { 
@@ -25,97 +24,90 @@ function addElement () {
     document.body.appendChild(myDiv2);
   }
 
-function checkForEnterKey(element) {
+//Calls ask function when enter key is pressed  
+function checkForEnterKey() {
     if (event.key === 'Enter') {
         ask();
     }
 }
 
+//ask function
 function ask() {
-    //validate input
-    let input = document.getElementById('askme').value;
-    if (document.getElementById('askme').value.length<5) {
-        document.getElementById('ErrorMsg').innerHTML='Too short. Enter again...';
+    try{
+        let input = document.getElementById('askmeInput').value;
+        if (isInputValid(input)) {
+            document.getElementById('ErrorMsg').innerHTML=null;
+            //shake image few times and display random image
+            displayImage();
+        }                
+    } catch (err) {
+        document.getElementById('ErrorMsg').innerHTML=err;
         document.querySelector('img').src='MbImages/magic8ball_extra.png';
-    } else {
-        document.getElementById('ErrorMsg').innerHTML=null;
-        //shake image few times and display random image
-        displayImage();
+    } finally {
+        document.getElementById('askmeInput').focus();
+        document.getElementById('askmeInput').select();
     }
-    document.getElementById('askme').focus();
-    document.getElementById('askme').select();
 }
 
+//generates a radon number between 1 and 20
 function getRandomInteger() {
     return (Math.floor(Math.random()*20)+1);
 }
 
+//Displays image
 function displayImage() {
     let myImg=document.getElementById('myImg');
-    myImg.src='MbImages/magic8ball_extra.png';
     shakeNumber++;
     myImg.style.left="0%";
     myImg.style.top="0%";
-    //shake image
-    if(shakeNumber%10===0) {
+    myImg.src='MbImages/magic8ball_extra.png';
+    if(shakeNumber===10) {
         //display new image
         myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
         shakeNumber=0;
         return;        
     }
-    if (shakeDirection==1){
-        myImg.style.top=parseInt(myImg.style.top)+shakeRector;
-        myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
-    } else if (shakeDirection==2){
-        myImg.style.left=parseInt(myImg.style.left)+shakeRector;
-        myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
-    } else if (shakeDirection==3){
-        myImg.style.top=parseInt(myImg.style.top)-shakeRector;
-        myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
-    } else{
-        myImg.style.left=parseInt(myImg.style.left)-shakeRector;
-        myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
+    //shake image
+    switch (shakeDirection) {
+        case 1:
+            myImg.style.top=parseInt(myImg.style.top)+shakeRector;
+            myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
+            break;
+        case 2:
+            myImg.style.left=parseInt(myImg.style.left)+shakeRector;
+            myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
+            break;
+        case 3:
+            myImg.style.top=parseInt(myImg.style.top)-shakeRector;
+            myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
+            break;
+        default:
+            myImg.style.left=parseInt(myImg.style.left)-shakeRector;
+            myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
     }
     shakeDirection<4 ? shakeDirection++ : shakeDirection=1;
-    setTimeout("displayImage()",50);
+    setTimeout("displayImage()",50);        
+        // if (shakeDirection==1){
+        //     myImg.style.top=parseInt(myImg.style.top)+shakeRector;
+        //     myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
+        // } else if (shakeDirection==2){
+        //     myImg.style.left=parseInt(myImg.style.left)+shakeRector;
+        //     myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
+        // } else if (shakeDirection==3){
+        //     myImg.style.top=parseInt(myImg.style.top)-shakeRector;
+        //     myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
+        // } else{
+        //     myImg.style.left=parseInt(myImg.style.left)-shakeRector;
+        //     myImg.src='MbImages/magic8ball_'+getRandomInteger()+'.png';
+        // }
  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//document.getElementById('askme').addEventListener('keyup',processEnterKey());
-// document.getElementById('askme').addEventListener('keyup',function (e) {
-//     if (e.key === 'Enter'){
-//         //alert( document.getElementById('askme').value);
-//         displayRandomImage();   
-//         e.preventDefault();
-//     }
-// });
-
-// function processEnterKey(event) {
-//     event.preventDefault();
-//     if (event.key === 'Enter') {
-//         document.getElementById('ask').click();
-//     }
-// }
+//question validation
+function isInputValid(input){
+    const questionRE = new RegExp(/(\w+\s\w+\s*)+\?/); //Min two words and a question mark
+    if (questionRE.test(input)){
+        return true;
+    } else {
+        throw 'Please enter a valid question...';        
+    }
+}
